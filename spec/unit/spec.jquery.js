@@ -17,6 +17,18 @@ describe 'jQuery'
     end
   end
   
+  describe 'with the document element'
+    it 'should output "jQuery(document)"'
+      puts($(document)).should.match(/jQuery\(document\)/i)
+    end
+  end
+  
+  describe 'without parameters'
+    it 'should output "jQuery()"'
+      puts($()).should.match(/jQuery\(\)/i)
+    end
+  end
+  
   describe 'sandbox()'
     before
       dom = sandbox()
@@ -119,6 +131,12 @@ describe 'jQuery'
         elem.should.not.have_event_handlers 'click'
         elem.bind('click', function(){})
         elem.should.have_event_handlers 'click'
+      end
+
+      it 'should check if an element has handlers for a given event when binded with live'
+        $('.live-event').should.not.have_event_handlers 'click'
+        $('.live-event').live('click', function(){})
+        $('.live-event').should.have_event_handlers 'click'
       end
     end
 
